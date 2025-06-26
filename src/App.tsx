@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Header } from './components/Header';
-import { CharacterCard } from './components/CharacterCard';
-import { CharacterModal } from './components/CharacterModal';
+import { PersonajeCard } from './components/PersonajeCard';
+import { PersonajeModal } from './components/PersonajeModal';
 import { LoadingSpinner } from './components/LoadingSpinner';
-import { FilterBar } from './components/FilterBar';
+import { BarraFiltros } from './components/BarraFiltros';
 import { useCharacters } from './hooks/useCharacters';
-import { Character } from './types/dragonball';
+import { Personaje } from './types/dragonball';
 import { AlertCircle, RefreshCcw } from 'lucide-react';
 
 function App() {
   const {
-    characters,
+    personajes,
     loading,
     error,
     searchQuery,
@@ -25,11 +25,11 @@ function App() {
     refetch
   } = useCharacters();
 
-  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
+  const [selectedCharacter, setSelectedCharacter] = useState<Personaje | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleCharacterClick = (character: Character) => {
-    setSelectedCharacter(character);
+  const handleCharacterClick = (personaje: Personaje) => {
+    setSelectedCharacter(personaje);
     setIsModalOpen(true);
   };
 
@@ -78,7 +78,7 @@ function App() {
       
       <main className="container mx-auto px-4 py-8">
         {!loading && (
-          <FilterBar
+          <BarraFiltros
             races={races}
             affiliations={affiliations}
             selectedRace={selectedRace}
@@ -91,7 +91,7 @@ function App() {
 
         {loading ? (
           <LoadingSpinner />
-        ) : characters.length === 0 ? (
+        ) : personajes.length === 0 ? (
           <div className="text-center py-12">
             <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8">
               <AlertCircle className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
@@ -112,8 +112,8 @@ function App() {
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-gray-800">
                 {searchQuery || selectedRace || selectedAffiliation
-                  ? `Resultados encontrados: ${characters.length}`
-                  : `Personajes de Dragon Ball Z (${characters.length})`}
+                  ? `Resultados encontrados: ${personajes.length}`
+                  : `Personajes de Dragon Ball Z (${personajes.length})`}
               </h2>
               {(searchQuery || selectedRace || selectedAffiliation) && (
                 <p className="text-gray-600 mt-1">
@@ -125,10 +125,10 @@ function App() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {characters.map((character) => (
-                <CharacterCard
-                  key={character.id}
-                  character={character}
+              {personajes.map((personaje) => (
+                <PersonajeCard
+                  key={personaje.id}
+                  personaje={personaje}
                   onClick={handleCharacterClick}
                 />
               ))}
@@ -137,10 +137,10 @@ function App() {
         )}
       </main>
 
-      <CharacterModal
-        character={selectedCharacter}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
+      <PersonajeModal
+        personaje={selectedCharacter}
+        estaAbierto={isModalOpen}
+        estaCerrado={handleCloseModal}
       />
     </div>
   );

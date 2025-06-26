@@ -1,4 +1,4 @@
-export interface Character {
+export interface Personaje {
   id: number;
   name: string;
   ki: string;
@@ -11,7 +11,7 @@ export interface Character {
   deletedAt?: string | null;
 }
 
-export interface Planet {
+export interface Planeta {
   id: number;
   name: string;
   isDestroyed: boolean;
@@ -20,7 +20,7 @@ export interface Planet {
   deletedAt?: string | null;
 }
 
-export interface Transformation {
+export interface Transformacion {
   id: number;
   name: string;
   image: string;
@@ -28,7 +28,7 @@ export interface Transformation {
   deletedAt?: string | null;
 }
 
-export interface ApiResponse<T> {
+export interface RespuestaApi<T> {
   items: T[];
   meta: {
     totalItems: number;

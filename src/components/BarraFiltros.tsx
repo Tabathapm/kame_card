@@ -1,7 +1,7 @@
 import React from 'react';
 import { Filter, RotateCcw } from 'lucide-react';
 
-interface FilterBarProps {
+interface BarraFiltrosProps {
   races: string[];
   affiliations: string[];
   selectedRace: string;
@@ -11,7 +11,7 @@ interface FilterBarProps {
   onReset: () => void;
 }
 
-export const FilterBar: React.FC<FilterBarProps> = ({
+export const BarraFiltros: React.FC<BarraFiltrosProps> = ({
   races,
   affiliations,
   selectedRace,

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Character } from '../types/dragonball';
+import { Personaje } from '../types/dragonball';
 import { DragonBallAPI } from '../services/dragonballApi';
 
 export const useCharacters = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
+  const [personajes, setPersonajes] = useState<Personaje[]>([]);
+  const [filtrarPersonajes, setfiltrarPersonajes] = useState<Personaje[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,7 +19,7 @@ export const useCharacters = () => {
   // Aplicar filtros
   useEffect(() => {
     applyFilters();
-  }, [characters, searchQuery, selectedRace, selectedAffiliation]);
+  }, [personajes, searchQuery, selectedRace, selectedAffiliation]);
 
   const loadCharacters = async () => {
     try {
@@ -27,24 +27,24 @@ export const useCharacters = () => {
       setError(null);
       
       // Cargar múltiples páginas para obtener más personajes
-      const allCharacters: Character[] = [];
+      const todosLosPersonajes: Personaje[] = [];
       for (let page = 1; page <= 3; page++) {
         try {
-          const response = await DragonBallAPI.getCharacters(page, 20);
-          allCharacters.push(...response.items);
+          const respuesta = await DragonBallAPI.getPersonajes(page, 20);
+          todosLosPersonajes.push(...respuesta.items);
         } catch (pageError) {
           console.error(`Error loading page ${page}:`, pageError);
           break;
         }
       }
       
-      if (allCharacters.length === 0) {
+      if (todosLosPersonajes.length === 0) {
         throw new Error('No se pudieron cargar los personajes');
       }
       
-      setCharacters(allCharacters);
+      setPersonajes(todosLosPersonajes);
     } catch (err) {
-      console.error('Error loading characters:', err);
+      console.error('Error loading personajes:', err);
       setError('Error al cargar los personajes. Por favor, inténtalo de nuevo.');
     } finally {
       setLoading(false);
@@ -52,7 +52,7 @@ export const useCharacters = () => {
   };
 
   const applyFilters = () => {
-    let filtered = [...characters];
+    let filtered = [...personajes];
 
     // Filtro por búsqueda
     if (searchQuery.trim()) {
@@ -74,7 +74,7 @@ export const useCharacters = () => {
       filtered = filtered.filter(character => character.affiliation === selectedAffiliation);
     }
 
-    setFilteredCharacters(filtered);
+    setfiltrarPersonajes(filtered);
   };
 
   const searchCharacters = async (query: string) => {
@@ -88,11 +88,11 @@ export const useCharacters = () => {
   };
 
   // Obtener valores únicos para filtros
-  const races = [...new Set(characters.map(char => char.race))].sort();
-  const affiliations = [...new Set(characters.map(char => char.affiliation))].sort();
+  const races = [...new Set(personajes.map(char => char.race))].sort();
+  const affiliations = [...new Set(personajes.map(char => char.affiliation))].sort();
 
   return {
-    characters: filteredCharacters,
+    personajes: filtrarPersonajes,
     loading,
     error,
     searchQuery,
