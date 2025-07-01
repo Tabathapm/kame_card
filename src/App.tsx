@@ -4,41 +4,41 @@ import { PersonajeCard } from './components/PersonajeCard';
 import { PersonajeModal } from './components/PersonajeModal';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { BarraFiltros } from './components/BarraFiltros';
-import { useCharacters } from './hooks/useCharacters';
+import { usePersonajes } from './hooks/usePersonajes';
 import { Personaje } from './types/dragonball';
 import { AlertCircle, RefreshCcw } from 'lucide-react';
 
 function App() {
   const {
     personajes,
-    loading,
+    cargando,
     error,
-    searchQuery,
-    selectedRace,
-    selectedAffiliation,
-    races,
-    affiliations,
-    searchCharacters,
-    setSelectedRace,
-    setSelectedAffiliation,
-    resetFilters,
-    refetch
-  } = useCharacters();
+    busqueda,
+    razaSeleccionada,
+    afiliacionSeleccionada,
+    razas,
+    afiliaciones,
+    buscarPersonajes,
+    setRazaSeleccionada,
+    setAfiliacionSeleccionada,
+    reiniciarFiltros,
+    recargar: cargarPersonajes
+  } = usePersonajes();
 
-  const [selectedCharacter, setSelectedCharacter] = useState<Personaje | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [personajeSeleccionado, setPersonajeSeleccionado] = useState<Personaje | null>(null);
+  const [modalAbierto, setModalAbierto] = useState(false);
 
-  const handleCharacterClick = (personaje: Personaje) => {
-    setSelectedCharacter(personaje);
-    setIsModalOpen(true);
+  const handlePersonajeClick = (personaje: Personaje) => {
+    setPersonajeSeleccionado(personaje);
+    setModalAbierto(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedCharacter(null);
+  const handleCerrarModal = () => {
+    setModalAbierto(false);
+    setPersonajeSeleccionado(null);
   };
 
-  const handleSearchSubmit = () => {
+  const handleBuscarSubmit = () => {
     // La búsqueda se aplica automáticamente a través del hook
   };
 
@@ -46,9 +46,9 @@ function App() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-orange-100 via-red-50 to-yellow-100">
         <Header 
-          searchQuery={searchQuery}
-          onSearchChange={searchCharacters}
-          onSearchSubmit={handleSearchSubmit}
+          searchQuery={busqueda}
+          onSearchChange={buscarPersonajes}
+          onSearchSubmit={handleBuscarSubmit}
         />
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8 text-center">
@@ -56,7 +56,7 @@ function App() {
             <h2 className="text-xl font-bold text-gray-800 mb-2">Error de Conexión</h2>
             <p className="text-gray-600 mb-6">{error}</p>
             <button
-              onClick={refetch}
+              onClick={cargarPersonajes}
               className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 mx-auto"
             >
               <RefreshCcw className="w-4 h-4" />
@@ -71,25 +71,25 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-100 via-red-50 to-yellow-100">
       <Header 
-        searchQuery={searchQuery}
-        onSearchChange={searchCharacters}
-        onSearchSubmit={handleSearchSubmit}
+        searchQuery={busqueda}
+        onSearchChange={buscarPersonajes}
+        onSearchSubmit={handleBuscarSubmit}
       />
       
       <main className="container mx-auto px-4 py-8">
-        {!loading && (
+        {!cargando && (
           <BarraFiltros
-            races={races}
-            affiliations={affiliations}
-            selectedRace={selectedRace}
-            selectedAffiliation={selectedAffiliation}
-            onRaceChange={setSelectedRace}
-            onAffiliationChange={setSelectedAffiliation}
-            onReset={resetFilters}
+            races={razas}
+            affiliations={afiliaciones}
+            selectedRace={razaSeleccionada}
+            selectedAffiliation={afiliacionSeleccionada}
+            onRaceChange={setRazaSeleccionada}
+            onAffiliationChange={setAfiliacionSeleccionada}
+            onReset={reiniciarFiltros}
           />
         )}
 
-        {loading ? (
+        {cargando ? (
           <LoadingSpinner />
         ) : personajes.length === 0 ? (
           <div className="text-center py-12">
@@ -100,7 +100,7 @@ function App() {
                 Intenta ajustar tus filtros de búsqueda o explora diferentes términos.
               </p>
               <button
-                onClick={resetFilters}
+                onClick={reiniciarFiltros}
                 className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300"
               >
                 Limpiar Filtros
@@ -111,15 +111,15 @@ function App() {
           <>
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-gray-800">
-                {searchQuery || selectedRace || selectedAffiliation
+                {busqueda || razaSeleccionada || afiliacionSeleccionada
                   ? `Resultados encontrados: ${personajes.length}`
                   : `Personajes de Dragon Ball Z (${personajes.length})`}
               </h2>
-              {(searchQuery || selectedRace || selectedAffiliation) && (
+              {(busqueda || razaSeleccionada || afiliacionSeleccionada) && (
                 <p className="text-gray-600 mt-1">
-                  {searchQuery && `Búsqueda: "${searchQuery}"`}
-                  {selectedRace && ` • Raza: ${selectedRace}`}
-                  {selectedAffiliation && ` • Afiliación: ${selectedAffiliation}`}
+                  {busqueda && `Búsqueda: "${busqueda}"`}
+                  {razaSeleccionada && ` • Raza: ${razaSeleccionada}`}
+                  {afiliacionSeleccionada && ` • Afiliación: ${afiliacionSeleccionada}`}
                 </p>
               )}
             </div>
@@ -129,7 +129,7 @@ function App() {
                 <PersonajeCard
                   key={personaje.id}
                   personaje={personaje}
-                  onClick={handleCharacterClick}
+                  onClick={handlePersonajeClick}
                 />
               ))}
             </div>
@@ -138,9 +138,9 @@ function App() {
       </main>
 
       <PersonajeModal
-        personaje={selectedCharacter}
-        estaAbierto={isModalOpen}
-        estaCerrado={handleCloseModal}
+        personaje={personajeSeleccionado}
+        estaAbierto={modalAbierto}
+        estaCerrado={handleCerrarModal}
       />
     </div>
   );
