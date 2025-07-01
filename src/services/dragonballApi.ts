@@ -11,7 +11,7 @@ export class DragonBallAPI {
       }
       return await respuesta.json();
     } catch (error) {
-      console.error('Error fetching characters:', error);
+      console.error('Error al obtener los personajes:', error);
       throw error;
     }
   }
@@ -24,7 +24,7 @@ export class DragonBallAPI {
       }
       return await respuesta.json();
     } catch (error) {
-      console.error('Error fetching character:', error);
+      console.error('Error al obtener el personaje:', error);
       throw error;
     }
   }
@@ -69,7 +69,7 @@ export class DragonBallAPI {
         hasMore = page < respuesta.meta.totalPages;
         page++;
       } catch (error) {
-        console.error('Error fetching all characters:', error);
+        console.error('Error al obtener todos los personajes:', error);
         hasMore = false;
       }
     }
