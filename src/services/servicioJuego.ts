@@ -1,7 +1,7 @@
 import { Carta, CartaPack, Usuario } from '../types/juego';
 import { Personaje } from '../types/dragonball';
 import { DragonBallAPI } from './dragonballApi';
-import { ServicioAutenticacion } from './ServicioAutenticacion';
+import { ServicioAutenticacion } from './servicioAutenticacion';
 
 export class ServicioJuego {
     static obtenerPaquetesCartas(): CartaPack[] {
