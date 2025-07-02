@@ -7,8 +7,8 @@ interface PropsFormularioLogin {
 }
 
 export const FormularioLogin: React.FC<PropsFormularioLogin> = ({ onSwitchToRegister }) => {
-    const [correo, setCorreo] = useState('');
-    const [contrasena, setContrasena] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [mostrarContrasena, setMostrarContrasena] = useState(false);
     const [error, setError] = useState('');
     const { iniciarSesion, cargando } = useAuth();
@@ -18,15 +18,15 @@ export const FormularioLogin: React.FC<PropsFormularioLogin> = ({ onSwitchToRegi
         setError('');
 
         try {
-            await iniciarSesion(correo, contrasena);
+            await iniciarSesion(email, password);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Error al iniciar sesión');
         }
     };
 
     const llenarCredencialesDemo = () => {
-        setCorreo('test@gmail.com');
-        setContrasena('123456');
+        setEmail('test@gmail.com');
+        setPassword('123456');
     };
 
     return (
@@ -49,8 +49,8 @@ export const FormularioLogin: React.FC<PropsFormularioLogin> = ({ onSwitchToRegi
                             <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                             <input
                                 type="email"
-                                value={correo}
-                                onChange={(e) => setCorreo(e.target.value)}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                                 placeholder="tu@email.com"
                                 required
@@ -66,8 +66,8 @@ export const FormularioLogin: React.FC<PropsFormularioLogin> = ({ onSwitchToRegi
                             <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                             <input
                                 type={mostrarContrasena ? 'text' : 'password'}
-                                value={contrasena}
-                                onChange={(e) => setContrasena(e.target.value)}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                                 placeholder="••••••••"
                                 required
