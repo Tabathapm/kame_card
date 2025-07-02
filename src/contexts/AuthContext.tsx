@@ -11,10 +11,10 @@ interface ContextoAutenticacion extends EstadoDeAutorizacion {
 
 const AutenticacionContext = createContext<ContextoAutenticacion | undefined>(undefined);
 
-export const useAutenticacion = () => {
+export const useAuth = () => {
     const contexto = useContext(AutenticacionContext);
     if (!contexto) {
-        throw new Error('useAutenticacion debe usarse dentro de un AutenticacionProvider');
+        throw new Error('useAuth debe usarse dentro de un AutenticacionProvider');
     }
     return contexto;
 };
