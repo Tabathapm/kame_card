@@ -1,3 +1,5 @@
+import { Personaje } from './dragonball';
+
 export interface Usuario {
   id: string;
   email: string;
@@ -18,19 +20,6 @@ export interface Carta {
   nivel: number;
   experiencia: number;
   obtenido: Date;
-}
-
-export interface Personaje {
-  id: number;
-  name: string;
-  ki: string;
-  maxKi: string;
-  race: string;
-  gender: string;
-  description: string;
-  image: string;
-  affiliation: string;
-  deletedAt?: string | null;
 }
 
 export interface CartaPack {

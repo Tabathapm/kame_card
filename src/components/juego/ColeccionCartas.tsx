@@ -75,19 +75,19 @@ export const ColeccionCartas: React.FC = () => {
             <div className="text-sm text-gray-600">Total</div>
           </div>
           <div className="bg-gray-50 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-gray-600">{estadisticasRareza.comun || 0}</div>
+            <div className="text-2xl font-bold text-gray-600">{estadisticasRareza.common || 0}</div>
             <div className="text-sm text-gray-600">Comunes</div>
           </div>
           <div className="bg-blue-50 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-blue-600">{estadisticasRareza.rara || 0}</div>
+            <div className="text-2xl font-bold text-blue-600">{estadisticasRareza.rare || 0}</div>
             <div className="text-sm text-gray-600">Raras</div>
           </div>
           <div className="bg-purple-50 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-purple-600">{estadisticasRareza.epica || 0}</div>
+            <div className="text-2xl font-bold text-purple-600">{estadisticasRareza.epic || 0}</div>
             <div className="text-sm text-gray-600">Épicas</div>
           </div>
           <div className="bg-yellow-50 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-yellow-600">{estadisticasRareza.legendaria || 0}</div>
+            <div className="text-2xl font-bold text-yellow-600">{estadisticasRareza.legendary || 0}</div>
             <div className="text-sm text-gray-600">Legendarias</div>
           </div>
         </div>
@@ -114,10 +114,10 @@ export const ColeccionCartas: React.FC = () => {
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             >
               <option value="">Todas las rarezas</option>
-              <option value="comun">Común</option>
-              <option value="rara">Rara</option>
-              <option value="epica">Épica</option>
-              <option value="legendaria">Legendaria</option>
+              <option value="common">Común</option>
+              <option value="rare">Rara</option>
+              <option value="epic">Épica</option>
+              <option value="legendary">Legendaria</option>
             </select>
           </div>
         </div>
