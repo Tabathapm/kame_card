@@ -33,7 +33,7 @@ export const CartaJuego: React.FC<PropiedadesCartaJuego> = ({ carta, onClick, cl
           <img
             src={carta.personaje.image}
             alt={carta.personaje.name}
-            className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-52 object-top object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500"
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x400/ff6b35/ffffff?text=Sin+Imagen';
             }}
